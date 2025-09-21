@@ -47,3 +47,8 @@ variable "tags" {
   description = "A mapping of tags to assign to all resources for identification and cost tracking"
   type        = map(string)
 }
+
+variable "aks_subnet_address_space" {
+  description = "AKS subnet CIDR (e.g., 10.0.0.0/24) used in FW rule sources"
+  type        = string
+}
