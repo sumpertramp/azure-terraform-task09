@@ -23,8 +23,6 @@ module "firewall" {
   nat_app_ports       = var.nat_app_ports
   aks_node_subnet_id  = var.aks_node_subnet_id
 
-  aks_subnet_address_space = var.aks_subnet_address_space
-
   tags = var.tags
 }
 

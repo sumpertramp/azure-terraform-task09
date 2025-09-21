@@ -13,10 +13,6 @@ variable "vnet_name" {
   type        = string
 }
 
-variable "vnet_address_space" {
-  description = "Existing VNet address space (CIDR)"
-  type        = string
-}
 
 variable "aks_subnet_name" {
   description = "Existing AKS subnet name"
