@@ -1,4 +1,3 @@
-# ---- Required core ----
 variable "location" {
   description = "Resources location"
   type        = string
@@ -34,7 +33,6 @@ variable "aks_cluster_name" {
   type        = string
 }
 
-# ---- Firewall & routing ----
 variable "fw_subnet_name" {
   description = "Firewall dedicated subnet name. Must be AzureFirewallSubnet."
   type        = string
@@ -60,7 +58,6 @@ variable "aks_node_subnet_id" {
   type        = string
 }
 
-# ---- Traffic / DNAT ----
 variable "aks_loadbalancer_ip" {
   description = "AKS NGINX Load Balancer public IP (from task parameters)."
   type        = string
@@ -71,15 +68,9 @@ variable "nat_app_ports" {
   type        = set(number)
 }
 
-# ---- Tags ----
+
 variable "tags" {
   description = "Common tags."
   type        = map(string)
-}
-
-# (Opsiyonel ama faydalı) Basit doğrulamalar
-variable "cmtr_prefix" {
-  description = "Naming should start with cmtr-vf06h1cc-mod9"
-  type        = string
 }
 
