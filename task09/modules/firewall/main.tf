@@ -72,7 +72,7 @@ resource "azurerm_firewall_network_rule_collection" "egress_web" {
 
   rule {
     name                  = "allow-http-https"
-    source_addresses      = [var.aks_subnet_address_space] # 10.0.0.0/24
+    source_addresses = [coalesce(var.aks_subnet_address_space, "*")]
     destination_addresses = ["*"]
     destination_ports     = ["80", "443"]
     protocols             = ["TCP"]

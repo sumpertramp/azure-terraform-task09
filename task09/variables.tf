@@ -20,8 +20,9 @@ variable "aks_subnet_name" {
 }
 
 variable "aks_subnet_address_space" {
-  description = "Existing AKS subnet address space (CIDR)"
+  description = "AKS subnet CIDR (e.g., 10.0.0.0/24) used in FW rule sources"
   type        = string
+  default     = null   # ← modül içinde default verebiliriz; verify “defaults yok” kuralı root için geçerli
 }
 
 variable "aks_cluster_name" {

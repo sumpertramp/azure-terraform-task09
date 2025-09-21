@@ -1,8 +1,8 @@
 # terraform.tfvars  (LOCAL — push etme)
 
-location                 = "eastus"
-rg_name                  = "cmtr-vf06h1cc-mod9-rg"
-vnet_name                = "cmtr-vf06h1cc-mod9-vnet"
+location  = "eastus"
+rg_name   = "cmtr-vf06h1cc-mod9-rg"
+vnet_name = "cmtr-vf06h1cc-mod9-vnet"
 
 # Firewall subnet (plan’da resource olarak oluşturuyoruz)
 fw_subnet_name           = "AzureFirewallSubnet"
