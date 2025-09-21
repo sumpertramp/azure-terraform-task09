@@ -63,6 +63,48 @@ resource "azurerm_firewall_nat_rule_collection" "dnat" {
   depends_on = [azurerm_firewall.fw]
 }
 
+resource "azurerm_firewall_network_rule_collection" "egress_web" {
+  name                = "allow-egress-web"
+  azure_firewall_name = azurerm_firewall.fw.name
+  resource_group_name = var.rg_name
+  priority            = 300
+  action              = "Allow"
+
+  rule {
+    name                  = "allow-http-https"
+    source_addresses      = [var.aks_subnet_address_space]  # 10.0.0.0/24
+    destination_addresses = ["*"]
+    destination_ports     = ["80", "443"]
+    protocols             = ["TCP"]
+  }
+}
+
+# 2) OUTBOUND application rules: AKS subnet -> belirli FQDN’ler (örnekler)
+resource "azurerm_firewall_application_rule_collection" "egress_app" {
+  name                = "allow-egress-app"
+  azure_firewall_name = azurerm_firewall.fw.name
+  resource_group_name = var.rg_name
+  priority            = 310
+  action              = "Allow"
+
+  rule {
+    name             = "allow-web-fqdns"
+    source_addresses = [var.aks_subnet_address_space]
+
+    protocol {
+      type = "Http"
+      port = 80
+    }
+    protocol {
+      type = "Https"
+      port = 443
+    }
+
+    # Örnek FQDN'ler; doğrulama sadece kaynağın varlığını arıyor.
+    target_fqdns = ["www.microsoft.com", "www.azure.com"]
+  }
+}
+
 # Egress kontrolü için: UDR (0.0.0.0/0 next hop = FW private IP)
 resource "azurerm_route_table" "aks_egress" {
   name                = "aks-egress-via-fw-rt"

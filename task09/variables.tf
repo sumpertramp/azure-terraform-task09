@@ -2,7 +2,6 @@
 variable "location" {
   description = "Resources location"
   type        = string
-  default     = "eastus" # Task parametresi: East US
 }
 
 variable "rg_name" {
@@ -39,13 +38,11 @@ variable "aks_cluster_name" {
 variable "fw_subnet_name" {
   description = "Firewall dedicated subnet name. Must be AzureFirewallSubnet."
   type        = string
-  default     = "AzureFirewallSubnet"
 }
 
 variable "fw_subnet_address_prefix" {
   description = "CIDR for AzureFirewallSubnet (must be at least /26)"
   type        = string
-  default     = "10.0.1.0/26" # 10.0.0.0/16 içinde; aks-snet(10.0.0.0/24) ile çakışmaz
 }
 
 variable "fw_name" {
@@ -72,26 +69,17 @@ variable "aks_loadbalancer_ip" {
 variable "nat_app_ports" {
   description = "Ports to expose via DNAT from Firewall PIP to AKS LB."
   type        = set(number)
-  default     = [80]
 }
 
 # ---- Tags ----
 variable "tags" {
   description = "Common tags."
   type        = map(string)
-  default     = {}
 }
 
 # (Opsiyonel ama faydalı) Basit doğrulamalar
 variable "cmtr_prefix" {
   description = "Naming should start with cmtr-vf06h1cc-mod9"
   type        = string
-  default     = "cmtr-vf06h1cc-mod9"
 }
-
-# örnek validation (istersen eklersin):
-# validation {
-#   condition     = var.location == "eastus"
-#   error_message = "Location must be eastus for this task."
-# }
 

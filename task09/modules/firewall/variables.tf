@@ -46,5 +46,4 @@ variable "aks_node_subnet_id" {
 variable "tags" {
   description = "A mapping of tags to assign to all resources for identification and cost tracking"
   type        = map(string)
-  default     = {}
 }
