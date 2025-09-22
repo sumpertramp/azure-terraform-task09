@@ -19,20 +19,12 @@ variable "aks_loadbalancer_ip" {
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  type = map(string)
 }
 
 variable "app_rule_target_fqdns" {
   description = "List of FQDNs allowed by the application rule"
   type        = list(string)
-  default = [
-    "*.microsoft.com",
-    "*.azure.com",
-    "*.github.com",
-    "*.docker.com",
-    "*.ubuntu.com"
-  ]
 }
 
 variable "app_rule_protocols" {
@@ -50,14 +42,10 @@ variable "app_rule_protocols" {
 variable "net_rule_protocols" {
   description = "Protocols for the network rule (DNS)"
   type        = list(string)
-  default     = ["UDP", "TCP"]
 }
 
 variable "nat_dnat_ports" {
   description = "Map of DNAT rules => destination/translated port"
   type        = map(number)
-  default = {
-    http  = 80
-    https = 443
-  }
+
 }

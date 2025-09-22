@@ -31,5 +31,27 @@ variable "aks_loadbalancer_ip" {
 variable "tags" {
   description = "Common tags"
   type        = map(string)
-  default     = {}
+}
+
+variable "app_rule_target_fqdns" {
+  description = "List of FQDNs allowed by the application rule"
+  type        = list(string)
+}
+
+variable "app_rule_protocols" {
+  description = "Protocols for the application rule"
+  type = list(object({
+    type = string
+    port = number
+  }))
+}
+
+variable "net_rule_protocols" {
+  description = "Protocols for the network rule (DNS)"
+  type        = list(string)
+}
+
+variable "nat_dnat_ports" {
+  description = "Map of DNAT rules => destination/translated port"
+  type        = map(number)
 }

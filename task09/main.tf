@@ -29,5 +29,11 @@ module "afw" {
   fw_subnet_cidr      = var.fw_subnet_cidr
   aks_loadbalancer_ip = var.aks_loadbalancer_ip
 
+  # ✅ Modülün zorunlu beklediği parametreler
+  app_rule_target_fqdns = var.app_rule_target_fqdns
+  app_rule_protocols    = var.app_rule_protocols
+  net_rule_protocols    = var.net_rule_protocols
+  nat_dnat_ports        = var.nat_dnat_ports
+
   tags = var.tags
 }
