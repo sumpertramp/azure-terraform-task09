@@ -70,3 +70,24 @@ variable "nat_dnat_ports" {
   type        = map(number)
 
 }
+
+variable "app_rule_collection_name" {
+  description = "Name of Application Rule Collection."
+  type        = string
+}
+
+variable "net_rule_collection_name" {
+  description = "Name of Network Rule Collection."
+  type        = string
+}
+
+variable "nat_rule_collection_name" {
+  description = "Name of NAT Rule Collection."
+  type        = string
+}
+
+variable "aks_backend_private_ip" {
+  description = "If set (non-empty), DNAT will target this private IP (internal LB / node). If empty, DNAT falls back to aks_loadbalancer_ip."
+  type        = string
+}
+

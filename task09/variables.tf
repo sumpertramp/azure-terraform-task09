@@ -55,3 +55,29 @@ variable "nat_dnat_ports" {
   description = "Map of DNAT rules => destination/translated port"
   type        = map(number)
 }
+
+variable "name_prefix" {
+  description = "Common name prefix for all resources, e.g. cmtr-vf06h1cc-mod9."
+  type        = string
+}
+
+variable "app_rule_collection_name" {
+  description = "Name of Azure Firewall Application Rule Collection."
+  type        = string
+}
+
+variable "net_rule_collection_name" {
+  description = "Name of Azure Firewall Network Rule Collection."
+  type        = string
+}
+
+variable "nat_rule_collection_name" {
+  description = "Name of Azure Firewall NAT Rule Collection."
+  type        = string
+}
+
+variable "aks_backend_private_ip" {
+  description = "If set (non-empty), DNAT will target this private IP (internal LB / node). If empty, DNAT falls back to aks_loadbalancer_ip."
+  type        = string
+}
+

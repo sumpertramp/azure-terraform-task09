@@ -66,10 +66,10 @@ resource "azurerm_subnet_route_table_association" "aks" {
 
 # 10.6: Application Rule Collection (HTTP/HTTPS allow to internet)
 resource "azurerm_firewall_application_rule_collection" "app" {
-  name                = local.rc.app.name
+  name                = var.app_rule_collection_name
   azure_firewall_name = azurerm_firewall.this.name
   resource_group_name = var.resource_group_name
-  priority            = local.rc.app.priority
+  priority            = local.rc_priority.app
   action              = "Allow"
 
   rule {
@@ -90,10 +90,10 @@ resource "azurerm_firewall_application_rule_collection" "app" {
 
 # 10.7: Network Rule Collection (DNS allow)
 resource "azurerm_firewall_network_rule_collection" "net" {
-  name                = local.rc.net.name
+  name                = var.app_rule_collection_name
   azure_firewall_name = azurerm_firewall.this.name
   resource_group_name = var.resource_group_name
-  priority            = local.rc.net.priority
+  priority            = local.rc_priority.net
   action              = "Allow"
 
   rule {
@@ -107,10 +107,10 @@ resource "azurerm_firewall_network_rule_collection" "net" {
 
 # 10.8: NAT Rule Collection (DNAT 80/443 -> AKS LB)
 resource "azurerm_firewall_nat_rule_collection" "nat" {
-  name                = local.rc.nat.name
+  name                = var.nat_rule_collection_name
   azure_firewall_name = azurerm_firewall.this.name
   resource_group_name = var.resource_group_name
-  priority            = local.rc.nat.priority
+  priority            = local.rc_priority.nat
   action              = "Dnat"
 
   dynamic "rule" {
@@ -121,7 +121,7 @@ resource "azurerm_firewall_nat_rule_collection" "nat" {
       destination_addresses = [azurerm_public_ip.fw.ip_address]
       destination_ports     = [tostring(rule.value)]
       protocols             = ["TCP"]
-      translated_address    = var.aks_loadbalancer_ip
+      translated_address    = length(trimspace(var.aks_backend_private_ip)) > 0 ? var.aks_backend_private_ip : var.aks_loadbalancer_ip
       translated_port       = rule.value
     }
   }

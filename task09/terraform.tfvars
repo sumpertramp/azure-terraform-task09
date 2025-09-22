@@ -14,6 +14,10 @@ tags = {
   Module  = "mod9"
 }
 
+app_rule_collection_name = "cmtr-vf06h1cc-mod9-app"
+net_rule_collection_name = "cmtr-vf06h1cc-mod9-net"
+nat_rule_collection_name = "cmtr-vf06h1cc-mod9-nat"
+
 app_rule_target_fqdns = [
   "*.microsoft.com",
   "*.azure.com",
@@ -30,3 +34,5 @@ app_rule_protocols = [
 net_rule_protocols = ["UDP", "TCP"]
 
 nat_dnat_ports = { http = 80, https = 443 }
+
+aks_backend_private_ip = ""

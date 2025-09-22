@@ -1,5 +1,5 @@
 locals {
-  prefix        = "cmtr-vf06h1cc-mod9"
+  prefix        = var.name_prefix
   region        = var.location
   rg            = var.resource_group_name
   vnet_name     = var.vnet_name

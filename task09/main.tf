@@ -26,6 +26,10 @@ module "afw" {
   firewall_pip_name = local.names.pip
   route_table_name  = local.names.route_table
 
+  app_rule_collection_name = var.app_rule_collection_name
+  net_rule_collection_name = var.net_rule_collection_name
+  nat_rule_collection_name = var.nat_rule_collection_name
+
   fw_subnet_cidr      = var.fw_subnet_cidr
   aks_loadbalancer_ip = var.aks_loadbalancer_ip
 
@@ -34,6 +38,8 @@ module "afw" {
   app_rule_protocols    = var.app_rule_protocols
   net_rule_protocols    = var.net_rule_protocols
   nat_dnat_ports        = var.nat_dnat_ports
+
+  aks_backend_private_ip = var.aks_backend_private_ip
 
   tags = var.tags
 }
