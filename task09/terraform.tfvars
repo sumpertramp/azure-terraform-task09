@@ -2,6 +2,7 @@ location            = "East US"
 resource_group_name = "cmtr-vf06h1cc-mod9-rg"
 vnet_name           = "cmtr-vf06h1cc-mod9-vnet"
 aks_subnet_name     = "aks-snet"
+name_prefix         = "cmtr-vf06h1cc-mod9"
 
 # FW alt ağı: çakışmasın
 fw_subnet_cidr = "10.0.1.0/26"
