@@ -123,7 +123,7 @@ resource "azurerm_firewall_nat_rule_collection" "nat" {
       protocols             = ["TCP"]
 
       # her zaman private backend IP'ye çevir
-      translated_address = var.aks_backend_private_ip
+      translated_address = length(trimspace(var.aks_backend_private_ip)) > 0 ? var.aks_backend_private_ip : var.aks_loadbalancer_ip
       translated_port    = rule.value
     }
   }
