@@ -35,3 +35,5 @@ app_rule_protocols = [
 net_rule_protocols = ["UDP", "TCP"]
 
 nat_dnat_ports = { http = 80, https = 443 }
+
+aks_backend_private_ip = ""
