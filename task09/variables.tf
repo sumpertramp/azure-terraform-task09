@@ -41,8 +41,8 @@ variable "app_rule_target_fqdns" {
 variable "app_rule_protocols" {
   description = "Protocols for the application rule"
   type = list(object({
-    type = string
-    port = number
+    proto = string # Http / Https
+    port  = number # 80 / 443
   }))
 }
 

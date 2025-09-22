@@ -44,7 +44,7 @@ variable "aks_loadbalancer_ip" {
 
 variable "tags" {
   description = "Tag"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "app_rule_target_fqdns" {
@@ -55,13 +55,9 @@ variable "app_rule_target_fqdns" {
 variable "app_rule_protocols" {
   description = "Protocols for the application rule"
   type = list(object({
-    type = string
-    port = number
+    proto = string # Http / Https
+    port  = number # 80 / 443
   }))
-  default = [
-    { type = "Http", port = 80 },
-    { type = "Https", port = 443 },
-  ]
 }
 
 variable "net_rule_protocols" {

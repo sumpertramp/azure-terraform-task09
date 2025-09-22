@@ -7,7 +7,7 @@ aks_subnet_name     = "aks-snet"
 fw_subnet_cidr = "10.0.1.0/26"
 
 # Görevde verilen AKS LB public IP:
-aks_loadbalancer_ip = "52.170.173.158"
+aks_loadbalancer_ip = "172.212.61.200"
 
 tags = {
   Creator = "sumeyye_unal@epam.com"
@@ -23,8 +23,8 @@ app_rule_target_fqdns = [
 ]
 
 app_rule_protocols = [
-  { type = "Http", port = 80 },
-  { type = "Https", port = 443 },
+  { proto = "Http", port = 80 },
+  { proto = "Https", port = 443 },
 ]
 
 net_rule_protocols = ["UDP", "TCP"]

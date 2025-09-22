@@ -80,7 +80,7 @@ resource "azurerm_firewall_application_rule_collection" "app" {
     dynamic "protocol" {
       for_each = var.app_rule_protocols
       content {
-        type = protocol.value.type
+        type = protocol.value.proto
         port = protocol.value.port
       }
     }
