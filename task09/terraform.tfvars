@@ -13,3 +13,20 @@ tags = {
   Creator = "sumeyye_unal@epam.com"
   Module  = "mod9"
 }
+
+app_rule_target_fqdns = [
+  "*.microsoft.com",
+  "*.azure.com",
+  "*.github.com",
+  "*.docker.com",
+  "*.ubuntu.com"
+]
+
+app_rule_protocols = [
+  { type = "Http", port = 80 },
+  { type = "Https", port = 443 },
+]
+
+net_rule_protocols = ["UDP", "TCP"]
+
+nat_dnat_ports = { http = 80, https = 443 }

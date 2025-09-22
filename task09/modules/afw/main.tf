@@ -73,29 +73,20 @@ resource "azurerm_firewall_application_rule_collection" "app" {
   action              = "Allow"
 
   rule {
-    name = "allow-http-https"
-
+    name             = "allow-http-https"
     source_addresses = ["10.0.0.0/16"]
+    target_fqdns     = var.app_rule_target_fqdns
 
-    protocol {
-      type = "Http"
-      port = 80
+    dynamic "protocol" {
+      for_each = var.app_rule_protocols
+      content {
+        type = protocol.value.type
+        port = protocol.value.port
+      }
     }
-    protocol {
-      type = "Https"
-      port = 443
-    }
-
-    # Geniş egress için yaygın alan adları; istersen listeyi daraltabiliriz.
-    target_fqdns = [
-      "*.microsoft.com",
-      "*.azure.com",
-      "*.github.com",
-      "*.docker.com",
-      "*.ubuntu.com"
-    ]
   }
 }
+
 
 # 10.7: Network Rule Collection (DNS allow)
 resource "azurerm_firewall_network_rule_collection" "net" {
@@ -122,23 +113,16 @@ resource "azurerm_firewall_nat_rule_collection" "nat" {
   priority            = local.rc.nat.priority
   action              = "Dnat"
 
-  rule {
-    name                  = "http-to-aks"
-    source_addresses      = ["*"]
-    destination_ports     = ["80"]
-    destination_addresses = [azurerm_public_ip.fw.ip_address]
-    protocols             = ["TCP"]
-    translated_port       = 80
-    translated_address    = var.aks_loadbalancer_ip
-  }
-
-  rule {
-    name                  = "https-to-aks"
-    source_addresses      = ["*"]
-    destination_ports     = ["443"]
-    destination_addresses = [azurerm_public_ip.fw.ip_address]
-    protocols             = ["TCP"]
-    translated_port       = 443
-    translated_address    = var.aks_loadbalancer_ip
+  dynamic "rule" {
+    for_each = var.nat_dnat_ports
+    content {
+      name                  = "${rule.key}-to-aks"
+      source_addresses      = ["*"]
+      destination_addresses = [azurerm_public_ip.fw.ip_address]
+      destination_ports     = [tostring(rule.value)]
+      protocols             = ["TCP"]
+      translated_address    = var.aks_loadbalancer_ip
+      translated_port       = rule.value
+    }
   }
 }
